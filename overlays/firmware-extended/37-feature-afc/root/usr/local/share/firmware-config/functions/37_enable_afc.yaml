@@ -1,13 +1,13 @@
 settings:
-  snapmaker_components:
+  tweaks:
     items:
       canbus:
-        label: Enable AFC
-        description: Enables use of AFC-Klipper-Add-On by copying over necessary files.
+        label: Enable AFC-Klipper-Add-On
+        description: Enables use of full AFC-Klipper-Add-On by copying over necessary files.
         get_cmd:
           - bash
           - -c
-          - test -f /home/lava/klipper/klippy/extras/AFC_unit.py && echo "enabled" || echo "disabled"
+          - test -f /home/lava/klipper/klippy/extras/AFC_utils.py && echo "enabled" || echo "disabled"
         options:
           enabled:
             label: Enabled
@@ -30,10 +30,10 @@ settings:
               - bash
               - -xc
               - |
-                find . -type l -name "*AFC*" -exec rm {} \; &&
-                cp /home/lava/klipper/klippy/extras/AFC.py.lite /home/lava/klipper/klippy/extras/AFC.py &&
-                cp /home/lava/klipper/klippy/extras/AFC_unit.py.lite /home/lava/klipper/klippy/extras/AFC_unit.py &&
-                cp /home/lava/klipper/klippy/extras/AFC_lane.py.lite /home/lava/klipper/klippy/extras/AFC_lane.py &&
+                find /home/lava/klipper/klippy/extras/ -type l -name "*AFC*" -exec rm {} \; &&
+                mv /home/lava/klipper/klippy/extras/AFC.py.lite /home/lava/klipper/klippy/extras/AFC.py &&
+                mv /home/lava/klipper/klippy/extras/AFC_unit.py.lite /home/lava/klipper/klippy/extras/AFC_unit.py &&
+                mv /home/lava/klipper/klippy/extras/AFC_lane.py.lite /home/lava/klipper/klippy/extras/AFC_lane.py &&
                 echo "AFC disabled. Restarting Klipper..." &&
                 /etc/init.d/S60klipper restart
         default: disabled
