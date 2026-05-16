@@ -3,15 +3,15 @@ settings:
     items:
       canbus:
         label: Enable AFC
-        description: Enables the use of the onboard CAN bus and any other USB to CAN bus devices/bridges.
+        description: Enables use of AFC-Klipper-Add-On by copying over necessary files.
         get_cmd:
           - bash
           - -c
-          - test -f /oem/printer_data/config/AFC/AFC_enabled && echo "enabled" || echo "disabled"
+          - test -f /home/lava/klipper/klippy/extras/AFC_unit.py && echo "enabled" || echo "disabled"
         options:
           enabled:
             label: Enabled
-            confirm: "Enable CAN bus? This adds rules so that the onboard CAN bus connector can be used, along with other USB to CAN bus dongles/bridges.  See documentation for details."
+            confirm: "Enable AFC-Klipper-Add-On? This adds support for full AFC-Klipper-Add-On."
             cmd:
             - bash
             - -xc
@@ -21,22 +21,19 @@ settings:
               cp /home/lava/klipper/klippy/extras/AFC_unit.py /home/lava/klipper/klippy/extras/AFC_unit.py.lite &&
               cp /home/lava/klipper/klippy/extras/AFC_lane.py /home/lava/klipper/klippy/extras/AFC_lane.py.lite &&
               ln -sf /home/lava/AFC-Klipper-Add-On/extras/AFC*.py /home/lava/klipper/klippy/extras/ &&
-              mkdir -p /oem/printer_data/config/AFC &&
-              touch /oem/printer_data/config/AFC/AFC_enabled &&
               echo "AFC enabled. Restarting Klipper..." &&
               /etc/init.d/S60klipper restart
           disabled:
-            label: Disabled
-            confirm: "Disable CAN bus? This will restart printer once disabled."
+            label: Disable
+            confirm: "Disable AFC-Klipper-Add-On?"
             cmd:
               - bash
               - -xc
               - |
+                find . -type l -name "*AFC*" -exec rm {} \; &&
                 cp /home/lava/klipper/klippy/extras/AFC.py.lite /home/lava/klipper/klippy/extras/AFC.py &&
                 cp /home/lava/klipper/klippy/extras/AFC_unit.py.lite /home/lava/klipper/klippy/extras/AFC_unit.py &&
                 cp /home/lava/klipper/klippy/extras/AFC_lane.py.lite /home/lava/klipper/klippy/extras/AFC_lane.py &&
-                ln -sf /home/lava/AFC-Klipper-Add-On/extras/AFC*.py /home/lava/klipper/klippy/extras/AFC.py &&
-                rm -vf /oem/printer_data/config/AFC/AFC_enabled &&
                 echo "AFC disabled. Restarting Klipper..." &&
                 /etc/init.d/S60klipper restart
         default: disabled
