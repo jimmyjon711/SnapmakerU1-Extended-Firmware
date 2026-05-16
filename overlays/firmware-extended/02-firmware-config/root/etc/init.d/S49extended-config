@@ -2,6 +2,7 @@
 
 DEFAULT_DIR="/usr/local/share/firmware-config/extended"
 EXTENDED_DIR="/home/lava/printer_data/config/extended"
+AFC_KLIPPER_ADD_ON_DIR="/home/lava/AFC-Klipper-Add-On"
 
 start() {
     # `.txt.txt` covers Windows users with "Hide extensions for known file types" enabled,
@@ -64,6 +65,9 @@ start() {
 
     echo "Setting ownership to lava user..."
     chown -R lava:lava "$EXTENDED_DIR"
+    echo "Setting ownership to lava user for AFC-Klipper-Add-On directory..."
+    chown -R lava:lava "$AFC_KLIPPER_ADD_ON_DIR"
+
 }
 
 case "$1" in
