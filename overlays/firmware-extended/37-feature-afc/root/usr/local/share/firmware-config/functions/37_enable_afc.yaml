@@ -1,7 +1,7 @@
 settings:
   tweaks:
     items:
-      canbus:
+      afc_full:
         label: Enable AFC-Klipper-Add-On
         description: Enables use of full AFC-Klipper-Add-On by copying over necessary files.
         get_cmd:
@@ -16,13 +16,7 @@ settings:
             - bash
             - -xc
             - |
-              touch /oem/.debug &&
-              cp /home/lava/klipper/klippy/extras/AFC.py /home/lava/klipper/klippy/extras/AFC.py.lite &&
-              cp /home/lava/klipper/klippy/extras/AFC_unit.py /home/lava/klipper/klippy/extras/AFC_unit.py.lite &&
-              cp /home/lava/klipper/klippy/extras/AFC_lane.py /home/lava/klipper/klippy/extras/AFC_lane.py.lite &&
-              ln -sf /home/lava/AFC-Klipper-Add-On/extras/AFC*.py /home/lava/klipper/klippy/extras/ &&
-              echo "AFC enabled. Restarting Klipper..." &&
-              /etc/init.d/S60klipper restart
+              sh /home/lava/AFC-Klipper-Add-On/include/U1_extended_firmware_install.sh -e
           disabled:
             label: Disable
             confirm: "Disable AFC-Klipper-Add-On?"
@@ -30,10 +24,5 @@ settings:
               - bash
               - -xc
               - |
-                find /home/lava/klipper/klippy/extras/ -type l -name "*AFC*" -exec rm {} \; &&
-                mv /home/lava/klipper/klippy/extras/AFC.py.lite /home/lava/klipper/klippy/extras/AFC.py &&
-                mv /home/lava/klipper/klippy/extras/AFC_unit.py.lite /home/lava/klipper/klippy/extras/AFC_unit.py &&
-                mv /home/lava/klipper/klippy/extras/AFC_lane.py.lite /home/lava/klipper/klippy/extras/AFC_lane.py &&
-                echo "AFC disabled. Restarting Klipper..." &&
-                /etc/init.d/S60klipper restart
+                sh /home/lava/AFC-Klipper-Add-On/include/U1_extended_firmware_install.sh -d
         default: disabled
