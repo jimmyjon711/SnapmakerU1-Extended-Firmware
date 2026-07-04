@@ -1,8 +1,8 @@
 settings:
-  tweaks:
+  snapmaker_components:
     items:
       afc_full:
-        label: Enable AFC-Klipper-Add-On
+        label: Enable AFC-Klipper-Add-On Plugin
         description: Enables use of full AFC-Klipper-Add-On by copying over necessary files.
         get_cmd:
           - bash
