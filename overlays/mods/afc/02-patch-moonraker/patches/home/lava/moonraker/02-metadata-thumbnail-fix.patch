@@ -1,7 +1,7 @@
 From 490df1c9397bbd16c4543e7d71c7f737eb4a7c70 Mon Sep 17 00:00:00 2001
 From: jimmyjon711 <jcmadill1@gmail.com>
 Date: Thu, 23 Jul 2026 22:11:52 -0700
-Subject: [PATCH 10/10] Fixing thumbnails to work for fluidd/mainsail and for
+Subject: [PATCH 01/01] Fixing thumbnails to work for fluidd/mainsail and for
  screen
 
 ---
